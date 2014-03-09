@@ -1,12 +1,12 @@
 .learning-objectives
   .input
     label Title
-    input type="text" data-name="title" value==@title.content
+    div data-name="title" == @title.content
   .input
     label Description
-    textarea data-name="description" == @description.content
+    div data-name="description" == @description.content
   .input
     label List Items
-    - for item,index in @list
-      input type="text" data-name="list" data-index=index value=item.content
-      br
+    ol
+      - for item,index in @list
+        li data-name="list" data-index=index == item.content

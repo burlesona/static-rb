@@ -142,6 +142,12 @@ class Content.LearningObjectives.Edit extends Content.Block.Edit
     super
     @formNode = document.createElement('div')
     @formNode.innerHTML = JST['learning_objectives'](@dataMap())
+    elements = @formNode.querySelectorAll('[data-name]')
+    @fields = []
+    for el in elements
+      nib = new Nib.Editor node: el, plugins:['bold','italic','underline']
+      nib.activate()
+      @fields.push(nib)
     @node.replaceChild(@formNode,@blockNode)
 
   stopEditing: ->
@@ -159,10 +165,9 @@ class Content.LearningObjectives.Edit extends Content.Block.Edit
     }
 
   parseForm: ->
-    elements = @formNode.querySelectorAll('[data-name]')
-    for el in elements
-      name = el.dataset.name
-      if i = el.dataset.index
-        @dataMap()[name][i].content = el.value
+    for nib in @fields
+      name = nib.node.dataset.name
+      if i = nib.node.dataset.index
+        @dataMap()[name][i].content = nib.node.innerHTML
       else
-        @dataMap()[name].content = el.value
+        @dataMap()[name].content = nib.node.innerHTML
