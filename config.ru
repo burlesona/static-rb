@@ -1,6 +1,7 @@
 require 'sprockets'
 require 'sprockets-sass'
 require 'sprockets-helpers'
+require 'skim'
 
 map '/compiled' do
   # Setup Sprockets Asset Packaging
